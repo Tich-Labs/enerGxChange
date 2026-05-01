@@ -1,4 +1,4 @@
-# innerG·X·change — Claude Instructions
+# enerG·X·change — Claude Instructions
 
 ## What this project is
 

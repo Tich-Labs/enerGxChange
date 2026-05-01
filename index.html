@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>innerG Xchange</title>
+<title>enerG Xchange</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,300;0,400;1,200;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -1951,7 +1951,7 @@ footer {
 
 <!-- TOP NAV -->
 <nav class="top-nav">
-  <div class="nav-logo" onclick="scrollToSection('hero')">innerG</div>
+  <div class="nav-logo" onclick="scrollToSection('hero')">enerG</div>
   <div class="nav-links" id="nav-links">
     <a onclick="scrollToSection('how-it-works')">How it works</a>
     <a onclick="scrollToSection('examples')">Examples</a>
@@ -1975,7 +1975,7 @@ footer {
   <div class="hero-eyebrow">Coming soon · Build with us</div>
 
   <div class="hero-title">
-    inner<span class="x">G</span><br>Xchange
+    ener<span class="x">G</span><br>Xchange
   </div>
 
   <div class="hero-line">
@@ -2338,7 +2338,7 @@ footer {
     <div class="card-preview">
       <div class="membership-card" onclick="showCardDetail()">
         <div class="card-top">
-          <span class="card-label">Xchange <span class="card-label-sub">powered by innerG</span></span>
+          <span class="card-label">Xchange <span class="card-label-sub">powered by enerG</span></span>
           <span class="card-year">2026</span>
         </div>
         <div class="card-sigil">
@@ -2426,37 +2426,37 @@ footer {
         <div class="comp-label"></div>
         <div class="comp-other col-1">Bunz</div>
         <div class="comp-other col-2">TimeRepublik</div>
-        <div class="comp-us">innerG Xchange</div>
+        <div class="comp-us">enerG Xchange</div>
       </div>
       <div class="comp-row" onclick="showCompDetail(0)">
         <div class="comp-label">No money inside</div>
         <div class="comp-other col-1" data-label="Bunz">BTZ currency</div>
         <div class="comp-other col-2" data-label="TimeRepublik">Time credits</div>
-        <div class="comp-us"   data-label="innerG Xchange">Total</div>
+        <div class="comp-us"   data-label="enerG Xchange">Total</div>
       </div>
       <div class="comp-row" onclick="showCompDetail(1)">
         <div class="comp-label">Earned entry</div>
         <div class="comp-other col-1" data-label="Bunz">Sign up</div>
         <div class="comp-other col-2" data-label="TimeRepublik">Sign up</div>
-        <div class="comp-us"   data-label="innerG Xchange">First exchange</div>
+        <div class="comp-us"   data-label="enerG Xchange">First exchange</div>
       </div>
       <div class="comp-row" onclick="showCompDetail(2)">
         <div class="comp-label">One match at a time</div>
         <div class="comp-other col-1" data-label="Bunz">Browse all</div>
         <div class="comp-other col-2" data-label="TimeRepublik">Browse all</div>
-        <div class="comp-us"   data-label="innerG Xchange">You receive one</div>
+        <div class="comp-us"   data-label="enerG Xchange">You receive one</div>
       </div>
       <div class="comp-row" onclick="showCompDetail(3)">
         <div class="comp-label">No ratings</div>
         <div class="comp-other col-1" data-label="Bunz">Stars</div>
         <div class="comp-other col-2" data-label="TimeRepublik">Stars</div>
-        <div class="comp-us"   data-label="innerG Xchange">Confirmation only</div>
+        <div class="comp-us"   data-label="enerG Xchange">Confirmation only</div>
       </div>
       <div class="comp-row" onclick="showCompDetail(4)">
         <div class="comp-label">Physical card</div>
         <div class="comp-other col-1" data-label="Bunz">No</div>
         <div class="comp-other col-2" data-label="TimeRepublik">No</div>
-        <div class="comp-us"   data-label="innerG Xchange">Yes</div>
+        <div class="comp-us"   data-label="enerG Xchange">Yes</div>
       </div>
     </div>
   </div>
@@ -2520,7 +2520,7 @@ footer {
   <p class="cta-note">No money needed to join. Just be ready to give something real.</p>
 </div>
 
-<footer>innerG Xchange &nbsp;·&nbsp; 2026</footer>
+<footer>enerG Xchange &nbsp;·&nbsp; 2026</footer>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modal" onclick="closeModal(event)">
@@ -2663,14 +2663,14 @@ function joinWaitlist() {
     return;
   }
   
-  const waitlist = JSON.parse(localStorage.getItem('innergxchange_waitlist') || '[]');
+  const waitlist = JSON.parse(localStorage.getItem('energxchange_waitlist') || '[]');
   if (waitlist.includes(email)) {
     showModal('You\'re already on the list!', 'We\'ll be in touch when we\'re ready. Thanks for believing in what we\'re building.');
     return;
   }
   
   waitlist.push(email);
-  localStorage.setItem('innergxchange_waitlist', JSON.stringify(waitlist));
+  localStorage.setItem('energxchange_waitlist', JSON.stringify(waitlist));
   
   showModal('You\'re in.', 'Thanks for joining. We\'ll email you when the community is ready for its first exchanges.<br><br>If you want to help build it faster, hit "Support on GitHub" — every bit helps.');
 }

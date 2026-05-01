@@ -1,4 +1,4 @@
-# Research Report — innerG·X·change
+# Research Report — enerG·X·change
 **Date:** April 24, 2026
 **Prepared for:** MVP Documentation
 
@@ -8,7 +8,7 @@
 
 The bartering platform market was valued at approximately USD 1.04 billion in 2024 and is projected to grow at a CAGR of 6.1%, reaching USD 1.49 billion by 2030. Growth is driven by three converging forces: economic pressure (inflation, gig economy precarity), values shift (sustainability, anti-consumerism), and the maturation of community-first digital products. The timing for a values-led exchange community is structurally sound.
 
-innerG·X·change operates at the intersection of three distinct but adjacent markets:
+enerG·X·change operates at the intersection of three distinct but adjacent markets:
 
 1. **Barter / goods exchange apps** — Bunz, BarterHub, BarterQuest
 2. **Skill / time banking platforms** — TimeRepublik, hOurworld, TimeBanks USA
@@ -59,7 +59,7 @@ No existing platform occupies all three spaces simultaneously with the product p
 
 ## Feature Comparison Matrix
 
-| Feature | Bunz | TimeRepublik | Gaia | **innerG·X·change** |
+| Feature | Bunz | TimeRepublik | Gaia | **enerG·X·change** |
 |---|---|---|---|---|
 | No money inside | Yes | Yes (time credits) | No | **Yes — total** |
 | Earned entry | No | No | No | **Yes — first exchange** |
@@ -77,16 +77,16 @@ No existing platform occupies all three spaces simultaneously with the product p
 ## Market Gaps and Opportunities
 
 **1. The Ritual Gap**
-Every platform above treats onboarding as form-filling. innerG·X·change treats it as initiation. The first exchange is a rite of passage — this creates psychological ownership no other platform has built.
+Every platform above treats onboarding as form-filling. enerG·X·change treats it as initiation. The first exchange is a rite of passage — this creates psychological ownership no other platform has built.
 
 **2. The Trust Gap**
-Ratings create performance anxiety and power asymmetry. innerG·X·change's binary confirmation model (it happened / it didn't) removes the review economy entirely. This is a philosophical product decision with strong differentiation value.
+Ratings create performance anxiety and power asymmetry. enerG·X·change's binary confirmation model (it happened / it didn't) removes the review economy entirely. This is a philosophical product decision with strong differentiation value.
 
 **3. The Identity Gap**
-No barter platform has a strong brand identity in the way that, say, Notion or Linear does. The warm, earthy, constellation aesthetic of innerG·X·change is immediately ownable in a market of cold, transactional UIs.
+No barter platform has a strong brand identity in the way that, say, Notion or Linear does. The warm, earthy, constellation aesthetic of enerG·X·change is immediately ownable in a market of cold, transactional UIs.
 
 **4. The Belonging Gap**
-Time banking creates credit, not community. innerG·X·change creates community by making the community invisible until you've earned it — turning the arrival moment into an emotional event.
+Time banking creates credit, not community. enerG·X·change creates community by making the community invisible until you've earned it — turning the arrival moment into an emotional event.
 
 **5. The Influencer-Native Gap**
 The "Voice + Builder" founding story is a viral mechanism embedded into the product itself. No competitor has built a community that begins with a visible, storied founding exchange. This is a launch advantage.
@@ -95,7 +95,7 @@ The "Voice + Builder" founding story is a viral mechanism embedded into the prod
 
 ## Summary Assessment
 
-innerG·X·change is differentiated enough to occupy a new category: **earned-entry energy exchange community**. It is not a barter app. It is not a time bank. It is not a wellness subscription. It is a community you prove yourself worthy of — and then a place you belong.
+enerG·X·change is differentiated enough to occupy a new category: **earned-entry energy exchange community**. It is not a barter app. It is not a time bank. It is not a wellness subscription. It is a community you prove yourself worthy of — and then a place you belong.
 
 The risk is not differentiation — it is critical mass. The matching system only works with sufficient density. Geographic or interest-based launch cohorts (starting with The Voice's existing audience) mitigate this risk significantly.
 

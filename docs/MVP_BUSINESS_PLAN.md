@@ -1,4 +1,4 @@
-# MVP Business Plan — innerG·X·change
+# MVP Business Plan — enerG·X·change
 **Version:** 1.0
 **Date:** April 24, 2026
 **Status:** MVP Definition
@@ -15,7 +15,7 @@ What's missing isn't a better algorithm. What's missing is initiation.
 
 Real communities — the ones people are loyal to for decades — require something of you before they let you in. Proof that you're real. Proof that you'll show up. Proof that you give as much as you take.
 
-innerG·X·change is built on that premise: **you earn the community by completing one genuine exchange with another human being, first.**
+enerG·X·change is built on that premise: **you earn the community by completing one genuine exchange with another human being, first.**
 
 ---
 
@@ -405,7 +405,7 @@ Target: 60%+ at steady state.
 
 ## Monetisation Notes
 
-innerG·X·change has no revenue model inside the platform. That is intentional and non-negotiable.
+enerG·X·change has no revenue model inside the platform. That is intentional and non-negotiable.
 
 **Sustainable paths that respect the philosophy:**
 
@@ -601,7 +601,7 @@ gem "image_processing"    # Active Storage variants
 ┌─────────────────────────────────────────────────────┐
 │  ·  ·  ·  ·   [SIGIL — right side, 40% width]       │ ← Texture: warm grain
 │                                                      │
-│  innerG · X · change                                 │
+│  enerG · X · change                                 │
 │                                                      │
 │  [ALIAS]                                             │
 │  [Primary World]                                     │
