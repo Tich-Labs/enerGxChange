@@ -1,0 +1,20 @@
+{
+  "extraKnownMarketplaces": {
+    "codewarden": {
+      "source": {
+        "source": "github",
+        "repo": "tylerbryy/codewarden"
+      }
+    },
+    "vibe": {
+      "source": {
+        "source": "github",
+        "repo": "soilmass/vibe-coding-plugin"
+      }
+    }
+  },
+  "enabledPlugins": [
+    "codewarden@codewarden",
+    "vibe-coding-plugin@vibe"
+  ]
+}

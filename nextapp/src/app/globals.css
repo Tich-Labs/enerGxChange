@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+:root {
+  --soil: #1a1410;
+  --bark: #2a2018;
+  --warm: #3a2e20;
+  --sand: #c4a882;
+  --sun: #e8c97a;
+  --ember: #d4622a;
+  --green: #5a8a5a;
+  --teal: #4a8a80;
+  --rose: #c46a6a;
+  --cream: #f5ede0;
+  --mist: rgba(245,237,224,0.55);
+  --whisper: rgba(245,237,224,0.3);
+  --bg: var(--soil);
+  --text: var(--cream);
+  --card-bg: var(--bark);
+  --nav-bg-rgb: 26,20,16;
+  --nav-border-rgb: 196,168,130;
+  --nav-text: rgba(245,237,224,0.55);
+}
+
+[data-theme="light"] {
+  --soil: #f0ebe3;
+  --bark: #e4ddd0;
+  --warm: #d4c8b8;
+  --sand: #5a5045;
+  --sun: #a68020;
+  --ember: #b84520;
+  --green: #4a604a;
+  --teal: #306058;
+  --rose: #904040;
+  --cream: #1a1410;
+  --mist: rgba(26,20,16,0.6);
+  --whisper: rgba(26,20,16,0.35);
+  --nav-bg-rgb: 248,245,239;
+  --nav-border-rgb: 107,93,74;
+  --nav-text: rgba(107,93,74,0.6);
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-soil: var(--soil);
+  --color-bark: var(--bark);
+  --color-warm: var(--warm);
+  --color-sand: var(--sand);
+  --color-sun: var(--sun);
+  --color-ember: var(--ember);
+  --color-green: var(--green);
+  --color-teal: var(--teal);
+  --color-rose: var(--rose);
+  --color-cream: var(--cream);
+  --color-mist: var(--mist);
+  --color-whisper: var(--whisper);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', Arial, Helvetica, sans-serif;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+@keyframes up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-up {
+  animation: up 0.8s ease forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}

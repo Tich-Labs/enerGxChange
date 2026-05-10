@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build Log — enerG·X·change</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,300;0,400;1,200;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --soil: #1a1410;
+  --bark: #2a2018;
+  --warm: #3a2e20;
+  --sand: #c4a882;
+  --sun: #e8c97a;
+  --ember: #d4622a;
+  --green: #5a8a5a;
+  --teal: #4a8a80;
+  --rose: #c46a6a;
+  --cream: #f5ede0;
+  --mist: rgba(245,237,224,0.55);
+  --whisper: rgba(245,237,224,0.3);
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--soil);
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 200;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+h1 em { font-style: italic; color: var(--sun); }
+h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 1.8rem;
+  color: var(--sun);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(196,168,130,0.15);
+}
+h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 1.3rem;
+  color: var(--sand);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+.tagline {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 200;
+  font-size: 1.15rem;
+  color: var(--mist);
+  margin-bottom: 2rem;
+}
+blockquote {
+  background: var(--bark);
+  border-left: 3px solid var(--ember);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 200;
+  color: var(--mist);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+th {
+  background: var(--bark);
+  color: var(--sand);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(196,168,130,0.15);
+}
+td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid rgba(245,237,224,0.05);
+  color: var(--cream);
+}
+tr:hover td { background: var(--warm); }
+code {
+  background: var(--bark);
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  color: var(--sun);
+}
+pre {
+  background: var(--bark);
+  padding: 1.25rem;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  border: 1px solid rgba(196,168,130,0.1);
+}
+ul, ol { padding-left: 1.5rem; margin: 0.75rem 0; }
+li { margin: 0.4rem 0; color: var(--mist); }
+li::marker { color: var(--sand); }
+strong { color: var(--cream); font-weight: 400; }
+.checklist { list-style: none; padding-left: 0; }
+.checklist li {
+  padding: 0.4rem 0 0.4rem 1.8rem;
+  position: relative;
+  color: var(--mist);
+}
+.checklist li::before {
+  content: '[ ]';
+  position: absolute;
+  left: 0;
+  color: var(--whisper);
+  font-size: 0.9rem;
+}
+.checklist li.done::before { content: '[✓]'; color: var(--green); }
+.checklist li.done { color: var(--green); opacity: 0.7; }
+.rule-box {
+  background: rgba(212,98,42,0.08);
+  border: 1px solid rgba(212,98,42,0.2);
+  border-radius: 5px;
+  padding: 1rem 1.5rem;
+  margin: 0.75rem 0;
+}
+.rule-box strong { color: var(--ember); }
+.state-machine {
+  background: var(--bark);
+  padding: 1.5rem;
+  border-radius: 5px;
+  margin: 1rem 0;
+  font-family: 'DM Sans', monospace;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--sand);
+}
+.state-machine .state { color: var(--sun); font-weight: 500; }
+.state-machine .arrow { color: var(--whisper); }
+.state-machine .note { color: var(--whisper); font-size: 0.85rem; font-style: italic; }
+.meta {
+  font-size: 0.9rem;
+  color: var(--whisper);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(196,168,130,0.1);
+}
+.phase-card {
+  background: var(--bark);
+  border-left: 3px solid var(--ember);
+  padding: 1.25rem 1.5rem;
+  margin: 1rem 0;
+  border-radius: 0 5px 5px 0;
+}
+.phase-card h3 { margin-top: 0; }
+.log-entry {
+  background: var(--bark);
+  padding: 1rem 1.5rem;
+  margin: 0.75rem 0;
+  border-radius: 5px;
+  border: 1px solid rgba(196,168,130,0.08);
+}
+.log-entry .date { color: var(--sun); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.log-entry ul { margin: 0.5rem 0; }
+</style>
+</head>
+<body>
+
+<h1>enerG·<em>X</em>·change — Build Log</h1>
+<div class="tagline">Give something real. Receive something real. Then you're in.</div>
+<div class="meta">
+  <strong>Stack:</strong> Rails 8 · Ruby · PostgreSQL · Solid Queue &nbsp;|&nbsp;
+  <strong>Rule:</strong> No money ever moves.
+</div>
+
+<!-- PROJECT OVERVIEW -->
+<h2>Project Overview</h2>
+<p>A barter/energy-exchange community platform where members earn entry by completing one real exchange with a matched person. No money ever moves.</p>
+<blockquote>Core rule: No browsing before first exchange. The constellation and member profiles are invisible until <code>community_member</code> state.</blockquote>
+
+<!-- TECH STACK -->
+<h2>Tech Stack (Free-Tier Optimized)</h2>
+<table>
+  <tr><th>Layer</th><th>Choice</th><th>Notes</th></tr>
+  <tr><td>Framework</td><td>Rails 8</td><td>Built-in auth, Solid Queue</td></tr>
+  <tr><td>Language</td><td>Ruby 3.x</td><td></td></tr>
+  <tr><td>Database</td><td>PostgreSQL</td><td>Render free (100MB) or Supabase free</td></tr>
+  <tr><td>Background Jobs</td><td>Solid Queue</td><td>Rails 8 native — no Redis needed</td></tr>
+  <tr><td>Auth</td><td>Rails 8 built-in</td><td><code>rails generate authentication</code></td></tr>
+  <tr><td>State Machine</td><td><code>aasm</code></td><td>User state transitions</td></tr>
+  <tr><td>QR Codes</td><td><code>rqrcode</code></td><td>Membership card verification</td></tr>
+  <tr><td>PDF Export</td><td><code>prawn</code> + <code>prawn-svg</code></td><td>Membership cards</td></tr>
+  <tr><td>PNG Export</td><td><code>grover</code></td><td>Headless Chrome</td></tr>
+  <tr><td>Admin</td><td><code>administrate</code></td><td>Self-hosted, free</td></tr>
+  <tr><td>Notifications</td><td><code>noticed</code></td><td>In-app + email</td></tr>
+  <tr><td>Gelato API</td><td><code>httparty</code></td><td>Physical card ordering (only external payment)</td></tr>
+  <tr><td>Pagination</td><td><code>pagy</code></td><td>Lightweight</td></tr>
+</table>
+
+<!-- FREE-TIER ARCHITECTURE -->
+<h2>Free-Tier Architecture</h2>
+<table>
+  <tr><th>Need</th><th>Provider</th><th>Limit</th></tr>
+  <tr><td>Rails Hosting</td><td><strong>Render</strong> (free tier)</td><td>Sleeps after 15 min idle</td></tr>
+  <tr><td>Database</td><td>Render PostgreSQL</td><td>100MB free</td></tr>
+  <tr><td>Email</td><td><strong>Resend</strong></td><td>3,000/mo free</td></tr>
+  <tr><td>File Storage</td><td><strong>Cloudflare R2</strong></td><td>10GB free, S3-compatible</td></tr>
+  <tr><td>Background Jobs</td><td>Solid Queue (DB-based)</td><td>No Redis cost</td></tr>
+</table>
+<p><strong>Note:</strong> Skipped Sidekiq + Redis to avoid cost — Solid Queue is native in Rails 8.</p>
+
+<!-- USER STATE MACHINE -->
+<h2>User State Machine</h2>
+<div class="state-machine">
+  <span class="state">declared</span> <span class="arrow">→</span> <span class="state">waiting_for_match</span> <span class="arrow">→</span> <span class="state">matched</span> <span class="arrow">→</span> <span class="state">community_member</span><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="arrow">↑</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="arrow">↓</span><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="note">└── (match expiry, returns here)</span><br><br>
+  <span class="state">any state</span> <span class="arrow">→</span> <span class="state">suspended</span> <span class="note">(admin only)</span>
+</div>
+<h3>States Defined</h3>
+<ul>
+  <li><strong>declared</strong> — User signed up, declared what they offer/want</li>
+  <li><strong>waiting_for_match</strong> — In the queue, awaiting algorithmic match</li>
+  <li><strong>matched</strong> — Paired with someone, 7-day exchange window</li>
+  <li><strong>community_member</strong> — Completed first exchange, full access unlocked</li>
+  <li><strong>suspended</strong> — Admin-only, locked out</li>
+</ul>
+
+<!-- THE 4 WORLDS -->
+<h2>The 4 Worlds (Fixed)</h2>
+<table>
+  <tr><th>World</th><th>Colour</th><th>Hex</th></tr>
+  <tr><td style="color:var(--green)">wellness</td><td>Green</td><td><code>#5a8a5a</code></td></tr>
+  <tr><td style="color:var(--sun)">entrepreneurship</td><td>Gold</td><td><code>#e8c97a</code></td></tr>
+  <tr><td style="color:var(--teal)">conscious_living</td><td>Teal</td><td><code>#4a8a80</code></td></tr>
+  <tr><td style="color:var(--rose)">creative_life</td><td>Rose</td><td><code>#c46a6a</code></td></tr>
+</table>
+
+<!-- MVP SCOPE -->
+<h2>MVP Scope (Phase 1 — Ship Lean)</h2>
+<h3>✅ Included in MVP</h3>
+<ul class="checklist">
+  <li>Rails 8 app scaffold + DB schema</li>
+  <li>Authentication (Rails 8 built-in)</li>
+  <li>User declaration (offer/want/world selection)</li>
+  <li>User state machine (AASM)</li>
+  <li>Matching engine (algorithmic pairing)</li>
+  <li>Exchange confirmation (binary: happened or didn't)</li>
+  <li>Community constellation unlock (post first exchange)</li>
+  <li>Membership card (PDF with QR code)</li>
+  <li>Card verification route (<code>/verify/:card_token</code>)</li>
+  <li>Gelato API integration (physical card ordering)</li>
+  <li>Admin panel (Administrate)</li>
+  <li>Notifications (Noticed gem)</li>
+</ul>
+<h3>❌ Skipped for MVP (Post-Launch)</h3>
+<ul>
+  <li>Forum / message boards</li>
+  <li>Sigil generator (complexity)</li>
+  <li>Advanced admin analytics</li>
+  <li>Mobile app</li>
+  <li>Ratings or reviews (<strong>permanent product decision: no ratings ever</strong>)</li>
+</ul>
+
+<!-- BUILD PHASES -->
+<h2>Build Phases</h2>
+
+<div class="phase-card">
+  <h3>Phase 1: Foundation (Week 1)</h3>
+  <ul class="checklist">
+    <li><code>rails new enerGXchange --database=postgresql --skip-redis</code></li>
+    <li>Configure Gemfile (add aasm, rqrcode, prawn, noticed, administrate, httparty, pagy)</li>
+    <li>Set up PostgreSQL locally</li>
+    <li>Run <code>rails generate authentication</code></li>
+    <li>Define core models: <code>User</code>, <code>Match</code>, <code>Exchange</code>, <code>World</code></li>
+    <li>Set up AASM states on User model</li>
+    <li>Run <code>rails db:create db:migrate</code></li>
+  </ul>
+</div>
+
+<div class="phase-card">
+  <h3>Phase 2: Core Flow (Week 2)</h3>
+  <ul class="checklist">
+    <li>Declaration form (offer/want/world)</li>
+    <li>World selection UI (4 Worlds)</li>
+    <li>User state transitions (declared → waiting_for_match)</li>
+    <li>Matching algorithm (pair users by world + offer/want compatibility)</li>
+    <li>Match notification (email + in-app)</li>
+  </ul>
+</div>
+
+<div class="phase-card">
+  <h3>Phase 3: Exchange & Confirmation (Week 3)</h3>
+  <ul class="checklist">
+    <li>Matched user dashboard (show match details)</li>
+    <li>Exchange confirmation flow (both parties must confirm)</li>
+    <li>State transition: matched → community_member</li>
+    <li>Match expiry logic (7-day window, return to waiting_for_match)</li>
+    <li>Admin override + audit logging</li>
+  </ul>
+</div>
+
+<div class="phase-card">
+  <h3>Phase 4: Community Unlock (Week 4)</h3>
+  <ul class="checklist">
+    <li>Constellation view (visible only to community_members)</li>
+    <li>Member profile view (restricted access)</li>
+    <li>Membership card generation (PDF with Prawn)</li>
+    <li>QR code generation (rqrcode → /verify/:card_token)</li>
+    <li>Card verify route</li>
+  </ul>
+</div>
+
+<div class="phase-card">
+  <h3>Phase 5: Polish & Deploy (Week 5-6)</h3>
+  <ul class="checklist">
+    <li>Gelato API integration (physical card ordering)</li>
+    <li>Admin panel setup (Administrate)</li>
+    <li>Notifications system (Noticed)</li>
+    <li>Deploy to Render (free tier)</li>
+    <li>Configure Solid Queue for background jobs</li>
+    <li>Set up Cloudflare R2 for file storage</li>
+    <li>Configure Resend for transactional email</li>
+  </ul>
+</div>
+
+<!-- HARD RULES -->
+<h2>Hard Rules (Never Violate)</h2>
+<div class="rule-box"><strong>1. No money inside.</strong> No Stripe, payment gems, credits, or currency. Gelato is only for physical card ordering.</div>
+<div class="rule-box"><strong>2. No ratings.</strong> No stars, scores, thumbs up/down. Exchange confirmation is binary.</div>
+<div class="rule-box"><strong>3. No browsing before first exchange.</strong> Constellation + profiles hidden until <code>community_member</code>.</div>
+<div class="rule-box"><strong>4. Card token is UUID.</strong> Public URLs use <code>/verify/:card_token</code>, never user ID or email.</div>
+<div class="rule-box"><strong>5. Sigil is deterministic.</strong> Same input = same SVG output (seeded by member ID).</div>
+<div class="rule-box"><strong>6. Admin overrides are logged.</strong> Every manual match mutation writes an audit record.</div>
+
+<!-- FOUNDING NODES -->
+<h2>Founding Nodes (Seed Data)</h2>
+<p>Two special users seeded on first deploy:</p>
+<ul>
+  <li><strong>The Voice</strong> — <code>founding_node: true</code>, <code>admin: true</code> (origin community node, pinned first)</li>
+  <li><strong>The Builder</strong> — <code>founding_node: true</code>, <code>admin: true</code> (built the app, exchange recipient)</li>
+</ul>
+<p>Their exchange is the first sealed record, displayed as a pinned card in the constellation.</p>
+
+<!-- PROGRESS LOG -->
+<h2>Progress Log</h2>
+<div class="log-entry">
+  <div class="date">2026-05-01 — Project Start</div>
+  <ul class="checklist">
+    <li class="done">Landing page (<code>index.html</code>) complete with design system</li>
+    <li class="done">Product specs (<code>MVP_BUSINESS_PLAN.md</code>, <code>RESEARCH_REPORT.md</code>)</li>
+    <li class="done">CLAUDE.md instructions file created</li>
+    <li class="done">Build plan documented (<code>BUILD_LOG.md</code>)</li>
+    <li class="done">HTML build log created (<code>BUILD_LOG.html</code>)</li>
+    <li>🔄 Next: Scaffold Rails 8 app</li>
+  </ul>
+</div>
+
+<!-- DEPLOYMENT CHECKLIST -->
+<h2>Deployment Checklist (Render Free Tier)</h2>
+<ul class="checklist">
+  <li>Rails 8 app pushed to GitHub</li>
+  <li>Render.com account connected to repo</li>
+  <li>Environment variables set (SECRET_KEY_BASE, etc.)</li>
+  <li>PostgreSQL add-on provisioned</li>
+  <li>Solid Queue configured (no Redis needed)</li>
+  <li>Cloudflare R2 bucket created + credentials set</li>
+  <li>Resend API key configured</li>
+  <li>Gelato API credentials set</li>
+  <li><code>bin/render_build.sh</code> script created</li>
+  <li>Test full flow end-to-end on live URL</li>
+</ul>
+
+<p style="margin-top:3rem;color:var(--whisper);font-size:0.9rem;font-style:italic;">Last updated: 2026-05-01</p>
+
+</body>
+</html>
