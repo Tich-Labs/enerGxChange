@@ -2,17 +2,17 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { getCurrentProfile, type StoredProfile } from '@/lib/storage';
+import { getCurrentProfile, type Profile } from '@/lib/storage';
 
 export default function CardPage() {
   const router = useRouter();
-  const [profile, setProfile] = useState<StoredProfile | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
   const [cardToken, setCardToken] = useState('');
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const p = getCurrentProfile();
-    if (!p || p.state !== 'community_member') {
+    if (!p || p.isMember !== true) {
       router.push('/profile/me');
       return;
     }
@@ -56,7 +56,7 @@ export default function CardPage() {
       <html>
       <head>
         <meta charset="UTF-8">
-        <title>Membership Card - ${profile.name}</title>
+        <title>Membership Card - ${profile.context.name}</title>
         <style>
           body { margin: 0; display: flex; justify-content: center; padding: 20px; background: #1a1410; }
           .card { width: 400px; background: #2a2018; border: 2px solid #e8c97a; border-radius: 16px; padding: 32px; color: #f5ede0; font-family: 'DM Sans', sans-serif; }
@@ -69,14 +69,14 @@ export default function CardPage() {
       </head>
       <body>
         <div class="card">
-          <div class="name">${profile.name}</div>
+          <div class="name">${profile.context.name}</div>
           <div style="color: #c4a882; font-size: 12px;">COMMUNITY MEMBER</div>
 
           <div class="label">Member Since</div>
           <div class="value">${profile.createdAt ? new Date(profile.createdAt).toLocaleDateString() : '—'}</div>
 
           <div class="label">Offers in</div>
-          <div class="value" style="color: #e8c97a;">${profile.offerWorld.replace('_', ' ')}</div>
+          <div class="value" style="color: #e8c97a;">${profile.offer.domain}</div>
 
           <div class="qr">
             <img src="${canvasRef.current?.toDataURL()}" width="128" height="128" alt="QR Code" />
@@ -95,7 +95,7 @@ export default function CardPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `membership-card-${profile.name}.html`;
+    a.download = `membership-card-${profile.context.name}.html`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -117,10 +117,10 @@ export default function CardPage() {
         <div id="membership-card" className="bg-[var(--bark)] border-2 border-[var(--sun)] rounded-2xl p-8 max-w-md mx-auto">
           <div className="text-center mb-6">
             <div className="w-20 h-20 rounded-full bg-[var(--warm)] flex items-center justify-center text-3xl font-[Fraunces] font-[200] text-[var(--sun)] mx-auto mb-4">
-              {profile.name.charAt(0).toUpperCase()}
+              {(profile.context.name || '?').charAt(0).toUpperCase()}
             </div>
             <h2 className="font-[Fraunces] font-[300] text-2xl text-[var(--cream)]">
-              {profile.name}
+              {profile.context.name}
             </h2>
             <p className="text-[var(--sun)] text-sm uppercase tracking-[0.2em] mt-1">
               Community Member
@@ -138,11 +138,11 @@ export default function CardPage() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <span className="text-xs uppercase tracking-[0.15em] text-[var(--sand)]">Offers in</span>
-                <p className="mt-1 text-[var(--sun)]">{profile.offerWorld.replace('_', ' ')}</p>
+                <p className="mt-1 text-[var(--sun)]">{profile.offer.domain}</p>
               </div>
               <div>
                 <span className="text-xs uppercase tracking-[0.15em] text-[var(--sand)]">Wants in</span>
-                <p className="mt-1 text-[var(--sun)]">{profile.wantWorld.replace('_', ' ')}</p>
+                <p className="mt-1 text-[var(--sun)]">{profile.want.domain}</p>
               </div>
             </div>
           </div>
@@ -162,7 +162,8 @@ export default function CardPage() {
         <div className="mt-8 text-center">
           <button
             onClick={handleDownload}
-            className="px-8 py-3 bg-[var(--ember)] border border-[var(--ember)] text-[var(--cream)] rounded-lg hover:-translate-y-[2px] transition-all duration-200"
+            className="btn btn-primary px-8 py-3 hover:-translate-y-[2px] transition-all duration-200"
+            type="button"
           >
             Download Card
           </button>

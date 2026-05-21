@@ -2,43 +2,55 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { StoredProfile, saveProfile, getCurrentProfile, getProfileById } from '@/lib/storage';
-import { WORLDS } from '@/constants';
+import { Profile, saveProfile, getCurrentProfile } from '@/lib/storage';
+import { DOMAINS, getFocusAreas } from '@/constants';
+import type { DomainId } from '@/types/user';
 
 export default function ProfileEditPage() {
   const router = useRouter();
-  const [profile, setProfile] = useState<Partial<StoredProfile>>({});
+  const [name, setName] = useState('');
+  const [bio, setBio] = useState('');
+  const [location, setLocation] = useState('');
+  const [offerDomain, setOfferDomain] = useState<DomainId>('skills_knowledge');
+  const [offerFocus, setOfferFocus] = useState('');
+  const [offerDesc, setOfferDesc] = useState('');
+  const [wantDomain, setWantDomain] = useState<DomainId>('skills_knowledge');
+  const [wantFocus, setWantFocus] = useState('');
+  const [wantDesc, setWantDesc] = useState('');
+  const [profileId, setProfileId] = useState('');
+  const [createdAt, setCreatedAt] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const current = getCurrentProfile();
     if (current) {
-      setProfile(current);
+      setProfileId(current.id);
+      setCreatedAt(current.createdAt);
+      setName(current.context.name || '');
+      setBio(current.context.bio || '');
+      setLocation(current.context.location || '');
+      setOfferDomain(current.offer.domain);
+      setOfferFocus(current.offer.focusArea || '');
+      setOfferDesc(current.offer.description);
+      setWantDomain(current.want.domain);
+      setWantFocus(current.want.focusArea || '');
+      setWantDesc(current.want.description);
     }
     setLoading(false);
   }, []);
 
-  const update = (field: string, value: string) => {
-    setProfile((prev) => ({ ...prev, [field]: value }));
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!profile.id) return;
-
-    const updated: StoredProfile = {
-      id: profile.id,
-      state: profile.state || 'declared',
-      name: profile.name || '',
-      bio: profile.bio || '',
-      location: profile.location || '',
-      offerWorld: (profile.offerWorld || 'wellness') as StoredProfile['offerWorld'],
-      offer: profile.offer || '',
-      wantWorld: (profile.wantWorld || 'wellness') as StoredProfile['wantWorld'],
-      want: profile.want || '',
-      createdAt: profile.createdAt || new Date().toISOString(),
-    };
-    saveProfile(updated);
+    if (!profileId) return;
+    saveProfile({
+      id: profileId,
+      tenantId: '',
+      context: { name: name || undefined, location: location || undefined, bio },
+      offer: { domain: offerDomain, focusArea: offerFocus, description: offerDesc },
+      want: { domain: wantDomain, focusArea: wantFocus, description: wantDesc },
+      status: 'active',
+      createdAt,
+    });
     router.push('/profile/me');
   };
 
@@ -52,129 +64,58 @@ export default function ProfileEditPage() {
 
   return (
     <main className="min-h-screen bg-[var(--soil)] text-[var(--cream)] pt-20">
-      <div className="px-6 max-w-2xl mx-auto pb-20 animate-up">
-        <button
-          onClick={() => router.push('/profile/me')}
-          className="text-[var(--sand)] hover:text-[var(--sun)] transition-colors mb-6 flex items-center gap-2 text-sm uppercase tracking-[0.15em]"
-        >
-          ← Back to Profile
+      <div className="px-6 max-w-lg mx-auto pb-20 animate-up">
+        <button onClick={() => router.push('/profile/me')} className="text-[var(--sand)] hover:text-[var(--sun)] transition-colors mb-6 flex items-center gap-2 text-sm">
+          &larr; Back to Profile
         </button>
-
-        <h1 className="font-[Fraunces] font-[200] text-3xl mt-4 mb-6 text-[var(--cream)]">
+        <h1 className="font-[Fraunces] font-[200] text-[2.25rem] mb-6 text-[var(--cream)]">
           Edit <em className="italic text-[var(--sun)]">Profile</em>
         </h1>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm uppercase tracking-[0.1em] text-[var(--sand)] mb-2">Name</label>
-            <input
-              type="text"
-              value={profile.name || ''}
-              onChange={(e) => update('name', e.target.value)}
-              className="w-full p-3 bg-[var(--bark)] border border-[var(--warm)] rounded-lg text-[var(--cream)] focus:border-[var(--ember)] focus:outline-none"
-            />
+            <label htmlFor="edit-name" className="label-sm text-[var(--sand)] mb-2 block">Name</label>
+            <input id="edit-name" name="edit-name" type="text" value={name} onChange={(e) => setName(e.target.value)} className="input-field rounded-lg" />
+          </div>
+          <div>
+            <label htmlFor="edit-bio" className="label-sm text-[var(--sand)] mb-2 block">Bio</label>
+            <textarea id="edit-bio" name="edit-bio" value={bio} onChange={(e) => setBio(e.target.value)} rows={3} className="input-field textarea rounded-lg" />
+          </div>
+          <div>
+            <label htmlFor="edit-location" className="label-sm text-[var(--sand)] mb-2 block">Location</label>
+            <input id="edit-location" name="edit-location" type="text" value={location} onChange={(e) => setLocation(e.target.value)} className="input-field rounded-lg" />
           </div>
 
           <div>
-            <label className="block text-sm uppercase tracking-[0.1em] text-[var(--sand)] mb-2">Bio</label>
-            <textarea
-              value={profile.bio || ''}
-              onChange={(e) => update('bio', e.target.value)}
-              rows={3}
-              className="w-full p-3 bg-[var(--bark)] border border-[var(--warm)] rounded-lg text-[var(--cream)] focus:border-[var(--ember)] focus:outline-none resize-none"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm uppercase tracking-[0.1em] text-[var(--sand)] mb-2">Location</label>
-            <input
-              type="text"
-              value={profile.location || ''}
-              onChange={(e) => update('location', e.target.value)}
-              className="w-full p-3 bg-[var(--bark)] border border-[var(--warm)] rounded-lg text-[var(--cream)] focus:border-[var(--ember)] focus:outline-none"
-            />
-          </div>
-
-          <div>
-            <span className="block text-sm uppercase tracking-[0.1em] text-[var(--sand)] mb-3">I Offer (World)</span>
-            <div className="grid grid-cols-2 gap-4 mb-3">
-              {WORLDS.map((world) => {
-                const isSelected = profile.offerWorld === world.id;
-                return (
-                  <button
-                    key={world.id}
-                    type="button"
-                    onClick={() => update('offerWorld', world.id)}
-                    className={`relative p-4 border-2 rounded-lg transition-all duration-300 ${
-                      isSelected ? 'bg-[var(--bark)] scale-[1.02]' : 'bg-[var(--bark)] hover:bg-[var(--warm)]'
-                    }`}
-                    style={{
-                      borderColor: isSelected ? world.color : 'var(--warm)',
-                      background: isSelected ? `${world.color}11` : undefined,
-                    }}
-                  >
-                    {isSelected && (
-                      <div className="absolute top-0 left-0 right-0 h-1 rounded-t-lg" style={{ background: world.color }} />
-                    )}
-                    <span className="font-[Fraunces] font-[300] text-lg text-[var(--cream)]">
-                      {world.label}
-                    </span>
-                  </button>
-                );
-              })}
+            <span className="label-sm text-[var(--sand)] mb-3 block">I Offer</span>
+            <div className="grid grid-cols-1 gap-2 mb-3">
+              {DOMAINS.map((d) => (
+                <button key={d.id} type="button" onClick={() => setOfferDomain(d.id)}
+                  className={`p-2.5 border-2 rounded-lg text-left flex items-center gap-2.5 transition-all ${offerDomain === d.id ? 'scale-[1.01]' : 'hover:bg-[var(--warm)]/30'}`}
+                  style={{ borderColor: offerDomain === d.id ? d.color : 'var(--warm)', backgroundColor: offerDomain === d.id ? `${d.color}10` : 'var(--bark)' }}>
+                  <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: d.color }} />
+                  <span className="text-xs font-medium" style={{ color: offerDomain === d.id ? d.color : 'var(--sand)' }}>{d.label}</span>
+                </button>
+              ))}
             </div>
-            <textarea
-              value={profile.offer || ''}
-              onChange={(e) => update('offer', e.target.value)}
-              rows={3}
-              placeholder="What you offer..."
-              className="w-full p-3 bg-[var(--bark)] border border-[var(--warm)] rounded-lg text-[var(--cream)] placeholder:text-[var(--sand)] focus:border-[var(--ember)] focus:outline-none resize-none"
-            />
+            <textarea id="offer-desc" name="offer-desc" value={offerDesc} onChange={(e) => setOfferDesc(e.target.value)} rows={2} placeholder="What you offer..." className="input-field textarea rounded-lg" />
           </div>
 
           <div>
-            <span className="block text-sm uppercase tracking-[0.1em] text-[var(--sand)] mb-3">I Want (World)</span>
-            <div className="grid grid-cols-2 gap-4 mb-3">
-              {WORLDS.map((world) => {
-                const isSelected = profile.wantWorld === world.id;
-                return (
-                  <button
-                    key={world.id}
-                    type="button"
-                    onClick={() => update('wantWorld', world.id)}
-                    className={`relative p-4 border-2 rounded-lg transition-all duration-300 ${
-                      isSelected ? 'bg-[var(--bark)] scale-[1.02]' : 'bg-[var(--bark)] hover:bg-[var(--warm)]'
-                    }`}
-                    style={{
-                      borderColor: isSelected ? world.color : 'var(--warm)',
-                      background: isSelected ? `${world.color}11` : undefined,
-                    }}
-                  >
-                    {isSelected && (
-                      <div className="absolute top-0 left-0 right-0 h-1 rounded-t-lg" style={{ background: world.color }} />
-                    )}
-                    <span className="font-[Fraunces] font-[300] text-lg text-[var(--cream)]">
-                      {world.label}
-                    </span>
-                  </button>
-                );
-              })}
+            <span className="label-sm text-[var(--sand)] mb-3 block">I Want</span>
+            <div className="grid grid-cols-1 gap-2 mb-3">
+              {DOMAINS.map((d) => (
+                <button key={d.id} type="button" onClick={() => setWantDomain(d.id)}
+                  className={`p-2.5 border-2 rounded-lg text-left flex items-center gap-2.5 transition-all ${wantDomain === d.id ? 'scale-[1.01]' : 'hover:bg-[var(--warm)]/30'}`}
+                  style={{ borderColor: wantDomain === d.id ? d.color : 'var(--warm)', backgroundColor: wantDomain === d.id ? `${d.color}10` : 'var(--bark)' }}>
+                  <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: d.color }} />
+                  <span className="text-xs font-medium" style={{ color: wantDomain === d.id ? d.color : 'var(--sand)' }}>{d.label}</span>
+                </button>
+              ))}
             </div>
-            <textarea
-              value={profile.want || ''}
-              onChange={(e) => update('want', e.target.value)}
-              rows={3}
-              placeholder="What you want..."
-              className="w-full p-3 bg-[var(--bark)] border border-[var(--warm)] rounded-lg text-[var(--cream)] placeholder:text-[var(--sand)] focus:border-[var(--ember)] focus:outline-none resize-none"
-            />
+            <textarea id="want-desc" name="want-desc" value={wantDesc} onChange={(e) => setWantDesc(e.target.value)} rows={2} placeholder="What you want..." className="input-field textarea rounded-lg" />
           </div>
 
-          <button
-            type="submit"
-            className="w-full p-4 bg-[var(--ember)] border border-[var(--ember)] text-[var(--cream)] rounded-lg hover:-translate-y-[2px] transition-all duration-200"
-          >
-            Save Changes
-          </button>
+          <button type="submit" className="btn btn-primary w-full text-[15px]">Save Changes</button>
         </form>
       </div>
     </main>
