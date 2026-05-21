@@ -4,6 +4,8 @@ A barter/energy-exchange platform where members earn community access by complet
 
 **Live:** [https://tichlabs.github.io/enerGXchange/](https://tichlabs.github.io/enerGXchange/) | **Stack:** Next.js 15 (Static) + Firebase + Tailwind CSS
 
+Note: the app-level README (`nextapp/README.md`) and app CLAUDE (`nextapp/CLAUDE.md`) were merged into this canonical repository README/CLAUDE and the duplicates have been removed.
+
 ---
 
 ## Quick Links
