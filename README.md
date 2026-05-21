@@ -132,6 +132,28 @@ node serve.js
 # Next.js app: http://localhost:8080/enerGXchange/
 ```
 
+---
+
+## App notes
+
+- App source: the Next.js application lives in the `nextapp/` folder. It's a standard `create-next-app` project using the App Router (app-dir).
+- Common local commands:
+
+```bash
+# start dev server (hot reload)
+cd nextapp
+npm run dev
+
+# build static export (output: nextapp/out/)
+npm run build
+```
+
+- The app uses `next/font` for automatic font optimization in the app; the project also includes custom typography in `src/app/globals.css` (Fraunces for headings, DM Sans for body).
+- Routes are served under `basePath: '/enerGXchange'` for the static export — when previewing the static site locally use `node serve.js` from the repo root to serve both the landing page and the app together.
+- Deployment: the repository is configured for static export and GitHub Pages. Pushing to `main` triggers the GitHub Actions workflow which builds the app and publishes the `nextapp/out/` static files to GitHub Pages. Vercel is optional but not required for static hosting.
+- For Firebase integration, copy your Firebase config into `nextapp/.env.local` (see `.env.local.example`) and enable Auth + Firestore in the Firebase Console.
+
+
 **Option B: Next.js Dev Server (Hot Reload, No Landing Page)**
 ```bash
 cd nextapp
